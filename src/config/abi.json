@@ -376,6 +376,11 @@
                         "internalType": "bytes4",
                         "name": "album",
                         "type": "bytes4"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "price",
+                        "type": "uint256"
                     }
                 ],
                 "internalType": "struct Core.userAlbumList[]",
