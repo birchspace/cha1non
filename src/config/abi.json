@@ -1,0 +1,614 @@
+[
+    {
+        "inputs": [],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "address[]",
+                "name": "singer",
+                "type": "address[]"
+            },
+            {
+                "indexed": false,
+                "internalType": "address[][]",
+                "name": "musicPlatform",
+                "type": "address[][]"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256[][]",
+                "name": "molecular",
+                "type": "uint256[][]"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256[]",
+                "name": "Denominator",
+                "type": "uint256[]"
+            }
+        ],
+        "name": "AllocMoney",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "singer",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "user",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "bytes4",
+                "name": "albumName",
+                "type": "bytes4"
+            }
+        ],
+        "name": "DescribeAlnum",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "singer",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "user",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "time",
+                "type": "uint256"
+            }
+        ],
+        "name": "DescribeSinger",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "address[]",
+                "name": "musicPlatform",
+                "type": "address[]"
+            },
+            {
+                "indexed": false,
+                "internalType": "address[]",
+                "name": "singer",
+                "type": "address[]"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256[][]",
+                "name": "amount",
+                "type": "uint256[][]"
+            }
+        ],
+        "name": "InvestSinger",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "singer",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "seller",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "bytes4",
+                "name": "albumName",
+                "type": "bytes4"
+            }
+        ],
+        "name": "OrderPending",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "singer",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "price",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "bytes4",
+                "name": "albumName",
+                "type": "bytes4"
+            }
+        ],
+        "name": "SingerUpdate",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "singer",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "fromUser",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "toUser",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "bytes4",
+                "name": "albumName",
+                "type": "bytes4"
+            }
+        ],
+        "name": "SwapRightAlbum",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "singer",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "fromUser",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "toUser",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "time",
+                "type": "uint256"
+            }
+        ],
+        "name": "SwapRightSinger",
+        "type": "event"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address[]",
+                "name": "_singer",
+                "type": "address[]"
+            },
+            {
+                "internalType": "address[][]",
+                "name": "_musicPlatform",
+                "type": "address[][]"
+            },
+            {
+                "internalType": "uint256[][]",
+                "name": "_molecular",
+                "type": "uint256[][]"
+            },
+            {
+                "internalType": "uint256[]",
+                "name": "_Denominator",
+                "type": "uint256[]"
+            }
+        ],
+        "name": "allocMoney",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_singer",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "_musicPlatform",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "_owner",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_molecular",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_Denominator",
+                "type": "uint256"
+            }
+        ],
+        "name": "calReward",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_singer",
+                "type": "address"
+            },
+            {
+                "internalType": "bytes4",
+                "name": "_albumName",
+                "type": "bytes4"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_choice",
+                "type": "uint256"
+            },
+            {
+                "internalType": "address",
+                "name": "_helpUser",
+                "type": "address"
+            }
+        ],
+        "name": "describe",
+        "outputs": [],
+        "stateMutability": "payable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_musicPlatform",
+                "type": "address"
+            }
+        ],
+        "name": "getMusicInvestSingers",
+        "outputs": [
+            {
+                "internalType": "address[]",
+                "name": "",
+                "type": "address[]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_singer",
+                "type": "address"
+            }
+        ],
+        "name": "getSingerAlbumsList",
+        "outputs": [
+            {
+                "internalType": "bytes4[]",
+                "name": "",
+                "type": "bytes4[]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_user",
+                "type": "address"
+            }
+        ],
+        "name": "getUserDescribeAlbumList",
+        "outputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "address",
+                        "name": "singer",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "bytes4",
+                        "name": "album",
+                        "type": "bytes4"
+                    }
+                ],
+                "internalType": "struct Core.userAlbumList[]",
+                "name": "",
+                "type": "tuple[]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_addr",
+                "type": "address"
+            }
+        ],
+        "name": "getUserDescribeSingerList",
+        "outputs": [
+            {
+                "internalType": "address[]",
+                "name": "",
+                "type": "address[]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address[]",
+                "name": "_musicPlatform",
+                "type": "address[]"
+            },
+            {
+                "internalType": "address[]",
+                "name": "_singer",
+                "type": "address[]"
+            },
+            {
+                "internalType": "uint256[][]",
+                "name": "amount",
+                "type": "uint256[][]"
+            }
+        ],
+        "name": "investSinger",
+        "outputs": [],
+        "stateMutability": "payable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_user",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "_singer",
+                "type": "address"
+            },
+            {
+                "internalType": "bytes4",
+                "name": "_albumName",
+                "type": "bytes4"
+            }
+        ],
+        "name": "isDescribe",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_singer",
+                "type": "address"
+            },
+            {
+                "internalType": "bytes4",
+                "name": "_albumName",
+                "type": "bytes4"
+            }
+        ],
+        "name": "marketLength",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "owner",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_addr",
+                "type": "address"
+            }
+        ],
+        "name": "readyForDescribe",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            },
+            {
+                "internalType": "bytes4",
+                "name": "",
+                "type": "bytes4"
+            }
+        ],
+        "name": "singerAlbums",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "singer",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "price",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "totalReward",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "name": "singerSongs",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "singer",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "price",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "totalReward",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "totalAmount",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_singer",
+                "type": "address"
+            },
+            {
+                "internalType": "bytes4",
+                "name": "_albumName",
+                "type": "bytes4"
+            }
+        ],
+        "name": "transferUserRightPending",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_price",
+                "type": "uint256"
+            },
+            {
+                "internalType": "bytes4",
+                "name": "_albumName",
+                "type": "bytes4"
+            }
+        ],
+        "name": "updateSongAndAlbum",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    }
+]

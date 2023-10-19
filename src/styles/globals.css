@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    html {
+        @apply scroll-smooth;
+    }
+
+    ::-webkit-scrollbar {
+        @apply w-1;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        @apply bg-neutral-500 rounded-2xl;
+    }
+
+    ::selection {
+        @apply text-emerald-300 bg-emerald-300/10;
+    }
+
+    h1 {
+        @apply text-primary;
+    }
+
+    :is(nav, img, button, input, label, textarea) {
+        @apply select-none;
+    }
+
+    li {
+        @apply list-none;
+    }
+}
+
+body {
+    -webkit-tap-highlight-color: transparent;
+}
