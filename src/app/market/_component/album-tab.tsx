@@ -2,17 +2,22 @@
 
 import { api } from "~/trpc/react";
 import { AlbumCard } from "./album-card";
+import NotFound from "~/app/not-found";
 
 export function AlbumTab() {
   const list = api.music.list.useQuery(undefined);
 
   return (
-    <div className="grid grid-cols-2 gap-6 pt-6">
-      {list.data?.map((item, index) => (
-        <div key={index}>
-          <AlbumCard singer={item} />
+    <>
+      {list.data ? (
+        <div className="grid grid-cols-2 gap-6">
+          {list.data?.map((item, index) => (
+            <div key={index} className="col-span-1 grid">
+              <AlbumCard singer={item} />
+            </div>
+          ))}
         </div>
-      ))}
-    </div>
+      ) : null}
+    </>
   );
 }

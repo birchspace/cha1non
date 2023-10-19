@@ -4,14 +4,16 @@ import React from "react";
 import { motion } from "framer-motion";
 import { PlusSquare } from "lucide-react";
 import { Button, Input } from "@nextui-org/react";
+import { RadioGroup, Radio } from "@nextui-org/react";
 import { Modal, ModalContent, ModalHeader } from "@nextui-org/react";
 import { useDisclosure, ModalBody, ModalFooter } from "@nextui-org/react";
 
-import { cn } from "~/utils";
+import { cn, stringToBytes4 } from "~/utils";
 import { useAtom } from "jotai";
 import { api } from "~/trpc/react";
 import { useAccount } from "wagmi";
 import { numAtom } from "~/utils/atom";
+import { useHooks } from "../../provider";
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
@@ -25,9 +27,28 @@ type FormValues = {
 export function Create() {
   const router = useRouter();
 
+  const { signer } = useHooks();
+
   const { address } = useAccount();
 
+  const money = api.money.sub.useMutation({
+    onSuccess: () => {
+      toast.success(`🦄 balance -1`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    },
+  });
+
   const connectAddress = address ? address : "null";
+
+  const [selected, setSelected] = React.useState("system");
 
   const [isHovered, setIsHovered] = React.useState(false);
 
@@ -35,7 +56,7 @@ export function Create() {
 
   const [name, setNmae] = React.useState("");
 
-  const [num, setNum] = useAtom(numAtom);
+  const [num] = useAtom(numAtom);
 
   const [price, setPrice] = React.useState("");
 
@@ -48,6 +69,23 @@ export function Create() {
       router.refresh();
     },
   });
+
+  const handleSystem = async () => {
+    const tx = await signer.updateSongAndAlbum(
+      address,
+      price,
+      stringToBytes4(name),
+      {
+        gasLimit: 500000,
+      },
+    );
+
+    await tx.wait();
+    money.mutate({
+      address: connectAddress,
+      number: 1,
+    });
+  };
 
   const onSubmit = handleSubmit((data) => {
     setNmae(data.name);
@@ -146,6 +184,22 @@ export function Create() {
                     {...register("price")}
                   />
                   <ModalFooter className="items-center justify-between pl-0 pt-6">
+                    <RadioGroup
+                      value={selected}
+                      orientation="horizontal"
+                      onValueChange={setSelected}
+                    >
+                      <Radio value="system" className="capitalize">
+                        system
+                      </Radio>
+                      <Radio
+                        value="self"
+                        color="secondary"
+                        className="capitalize"
+                      >
+                        self
+                      </Radio>
+                    </RadioGroup>
                     <div className="flex items-center gap-4">
                       <Button
                         color="danger"
@@ -169,7 +223,7 @@ export function Create() {
                       <Button
                         color="primary"
                         size="sm"
-                        onClick={handleIshidden}
+                        onClick={() => setIsHidden(true)}
                         className={cn(
                           "bg-pink-600 text-white shadow-lg",
                           isHidden ? "hidden" : "",
@@ -180,7 +234,9 @@ export function Create() {
                       <Button
                         color="default"
                         size="sm"
-                        onClick={createAlbum}
+                        onClick={
+                          selected == "system" ? handleSystem : createAlbum
+                        }
                         className={cn(
                           " bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg",
                           isHidden ? "hidden" : "",

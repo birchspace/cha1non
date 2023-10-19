@@ -97,7 +97,7 @@ export function SingerAlbumsList() {
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1 capitalize">
-                quary MarketLenth
+                quary singer album list
               </ModalHeader>
               <ModalBody>
                 <form onSubmit={onSubmit}>
@@ -110,8 +110,8 @@ export function SingerAlbumsList() {
                     min={42}
                     {...register("singer")}
                   />
-                  <ModalFooter className="items-center justify-between pl-0 pt-6 flex flex-col">
-                    <div className="flex  gap-4 justify-start">
+                  <ModalFooter className="flex flex-col items-center justify-between pl-0 pt-6">
+                    <div className="flex  justify-start gap-4">
                       <Button
                         color="danger"
                         size="sm"
@@ -154,9 +154,9 @@ export function SingerAlbumsList() {
                         Start
                       </Button>
                     </div>
-                    <div className="py-6 flex flex-wrap justify-start">
+                    <div className="flex flex-wrap justify-start py-6">
                       {singerData.map((item, index) => (
-                        <span className="px-4 py-2 card" key={index}>
+                        <span className="card px-4 py-2" key={index}>
                           {item}
                         </span>
                       ))}

@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+import { api } from "~/trpc/server";
 import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
 
 export const moneyRouter = createTRPCRouter({
@@ -40,13 +41,17 @@ export const moneyRouter = createTRPCRouter({
       z.object({
         number: z.number(),
         address: z.string(),
-        money: z.number(),
       }),
     )
     .mutation(async ({ input, ctx }) => {
+      const res = await ctx.db.user.findUnique({
+        where: {
+          address: input.address,
+        },
+      });
       return await ctx.db.user.updateMany({
         data: {
-          money: input.money - input.number,
+          money: res!.money - input.number,
         },
         where: {
           address: input.address,

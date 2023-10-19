@@ -5,7 +5,6 @@ import abi from "~/config/abi.json";
 import { env } from "~/env.mjs";
 import { useAccount, useContractRead } from "wagmi";
 import { BigNumber, ethers } from "ethers";
-import { bigint } from "zod";
 
 type SingerSongsValue = {
   input: string;
@@ -47,7 +46,7 @@ export const useSingerSongs = ({
     abi,
     functionName: "singerSongs",
     args: [input],
-    watch:true
+    watch: true,
   }) as {
     data: [
       singer: `0x${string}` | null,

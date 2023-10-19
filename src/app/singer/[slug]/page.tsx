@@ -25,7 +25,13 @@ export default function SingerPage({ params }: { params: { slug: string } }) {
               {getSingerAlbumsList.length > 0 ? (
                 <>
                   {getSingerAlbumsList.map((item, index) => (
-                    <AlbumCard name={item} index={index} singer={params.slug} />
+                    <div key={index}>
+                      <AlbumCard
+                        name={item}
+                        index={index}
+                        singer={params.slug}
+                      />
+                    </div>
                   ))}
                 </>
               ) : (

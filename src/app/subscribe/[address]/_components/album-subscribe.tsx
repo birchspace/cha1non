@@ -30,7 +30,7 @@ export function AlbumSubscribe({ address }: { address: string }) {
                 ? getUserDescribeAlbumList.map((item, index) => (
                     <li key={index}>
                       <AlbumSubscribeItem
-                        title={item}
+                        title={item.album!.toString()}
                         address={address}
                         index={index}
                       />

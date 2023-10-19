@@ -1,9 +1,16 @@
 "use client";
 
 import React from "react";
-import abi from "~/config/abi.json";
 import { env } from "~/env.mjs";
+import { BigNumber } from "ethers";
+import abi from "~/config/abi.json";
 import { useAccount, useContractRead } from "wagmi";
+
+type GetUserDescribeAlbumListResult = {
+  album: `0x${string}` | null;
+  price: BigNumber | null;
+  singer: `0x${string}` | null;
+};
 
 type GetUserDescribeAlbumListValue = {
   input: string;
@@ -11,7 +18,7 @@ type GetUserDescribeAlbumListValue = {
 
 type GetUserDescribeAlbumListProps = {
   address: `0x${string}` | undefined;
-  getUserDescribeAlbumList: string[];
+  getUserDescribeAlbumList: GetUserDescribeAlbumListResult[];
   getGetUserDescribeAlbumListLoading: boolean;
   getGetUserDescribeAlbumListError: boolean;
 };
@@ -38,7 +45,11 @@ export const useGetUserDescribeAlbumList = ({
     abi,
     functionName: "getUserDescribeAlbumList",
     args: [input],
-  }) as { data: string[]; isLoading: boolean; isError: boolean };
+  }) as {
+    data: GetUserDescribeAlbumListResult[];
+    isLoading: boolean;
+    isError: boolean;
+  };
 
   React.useEffect(() => {
     setState({

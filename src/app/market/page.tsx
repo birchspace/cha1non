@@ -11,11 +11,11 @@ import { AnimateEnter } from "~/app/_components/animate-enter";
 import { Tabs, Tab, Card, CardBody, CardHeader } from "@nextui-org/react";
 
 export default function Market() {
-  const [init, setInit] = React.useState(false);
+  const account = useAccount();
 
   const [selected, setSelected] = React.useState("photos");
 
-  const account = useAccount();
+  const [init, setInit] = React.useState(false);
 
   const connectAddress = account.address ? account.address.toString() : "null";
 
@@ -76,13 +76,14 @@ export default function Market() {
             >
               <AlbumTab />
             </Tab>
+
             {role === "owner" ? (
               <Tab
                 key="owner"
                 title={
                   <div className="flex items-center space-x-2">
                     <Icons.music className="h-6 w-6" />
-                    <span className="capitalize">投资</span>
+                    <span className="capitalize">investment</span>
                   </div>
                 }
               >

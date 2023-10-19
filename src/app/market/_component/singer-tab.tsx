@@ -12,7 +12,7 @@ export function SingerTab() {
     <div className="grid grid-cols-2  gap-6">
       {singerData.data?.map((item, index) => (
         <div key={index}>
-          <SingerCard address={item} />
+          <SingerCard address={item} index={index} />
         </div>
       ))}
     </div>

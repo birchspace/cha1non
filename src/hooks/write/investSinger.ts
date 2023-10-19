@@ -2,51 +2,60 @@ import React from "react";
 import abi from "~/config/abi.json";
 import { env } from "~/env.mjs";
 import { useAccount, useContractWrite } from "wagmi";
-import { stringToBytes4 } from "~/utils";
 import { usePrepareContractWrite, useWaitForTransaction } from "wagmi";
 import { toast } from "react-toastify";
-import { ethers } from "ethers";
+import { BigNumber, ethers } from "ethers";
 
-//   歌手：设置订阅价格
-interface UpdateSongProps {
+interface InvestSingerProps {
   price: string;
+  musicPlatform: string[] | null;
+  singer: string[] | null;
+  amount: BigNumber[][] | null;
   onSetSongSuccess?: () => void;
 }
 
+// 订阅歌手
+
 interface SongState {
   address: `0x${string}` | undefined;
-  updateSong: (() => void) | undefined;
-  updateSongLoading: boolean;
-  prepareupdateSongbeError: boolean;
-  updateSongError: boolean;
+  investSinger: (() => void) | undefined;
+  investSingerLoading: boolean;
+  prepareinvestSingerbeError: boolean;
+  investSingerError: boolean;
 }
 
-export const useUpdateSong = ({ price, onSetSongSuccess }: UpdateSongProps) => {
+export const useInvestSinger = ({
+  price,
+  singer,
+  musicPlatform,
+  amount,
+  onSetSongSuccess,
+}: InvestSingerProps) => {
   const { address } = useAccount();
 
   const [state, setState] = React.useState<SongState>({
     address: undefined,
-    updateSong: undefined,
-    updateSongLoading: false,
-    prepareupdateSongbeError: false,
-    updateSongError: false,
+    investSinger: undefined,
+    investSingerLoading: false,
+    prepareinvestSingerbeError: false,
+    investSingerError: false,
   });
 
-  const { config, isError: prepareupdateSongbeError } = usePrepareContractWrite(
-    {
+  const { config, isError: prepareinvestSingerbeError } =
+    usePrepareContractWrite({
       address: env.NEXT_PUBLIC_CONTRACT_ADDRESS as `0x${string}`,
       chainId: parseInt(env.NEXT_PUBLIC_CHAIN_ID ?? "5"),
       abi,
-      functionName: "updateSongAndAlbum",
-      args: [address, price, "0x00000000"],
-    },
-  );
+      functionName: "investSinger",
+      args: [musicPlatform, singer, amount],
+      value: BigInt(price),
+    });
 
   const {
     data,
-    write: updateSong,
-    isLoading: updateSongLoading,
-    isError: updateSongError,
+    write: investSinger,
+    isLoading: investSingerLoading,
+    isError: investSingerError,
   } = useContractWrite(config);
 
   const { isLoading: txLoading } = useWaitForTransaction({
@@ -69,18 +78,20 @@ export const useUpdateSong = ({ price, onSetSongSuccess }: UpdateSongProps) => {
   React.useEffect(() => {
     setState({
       address,
-      updateSong,
-      updateSongLoading: updateSongLoading || txLoading,
-      prepareupdateSongbeError,
-      updateSongError,
+      investSinger,
+      investSingerLoading: investSingerLoading || txLoading,
+      prepareinvestSingerbeError,
+      investSingerError,
     });
   }, [
     address,
-    updateSong,
-    updateSongLoading,
-    prepareupdateSongbeError,
-    updateSongError,
+    investSinger,
+    investSingerLoading,
+    prepareinvestSingerbeError,
+    investSingerError,
     txLoading,
+
+    investSingerError,
   ]);
 
   return state;

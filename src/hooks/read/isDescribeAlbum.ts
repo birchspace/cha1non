@@ -40,7 +40,7 @@ export const useIsDescribeAlbum = ({
     address: env.NEXT_PUBLIC_CONTRACT_ADDRESS as `0x${string}`,
     chainId: parseInt(env.NEXT_PUBLIC_CHAIN_ID ?? "5"),
     abi,
-    functionName: "isDescribeAlbum",
+    functionName: "isDescribe",
     args: [address, singer, name],
     watch: true,
   }) as { data: boolean; isLoading: boolean; isError: boolean };

@@ -4,13 +4,17 @@ import React from "react";
 import { motion } from "framer-motion";
 import { CircleDollarSign } from "lucide-react";
 import { Button, Input } from "@nextui-org/react";
+import { RadioGroup, Radio } from "@nextui-org/react";
 import { Modal, ModalContent, ModalHeader } from "@nextui-org/react";
 import { useDisclosure, ModalBody, ModalFooter } from "@nextui-org/react";
 
+import { useAccount } from "wagmi";
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { cn, isEOAAddress } from "~/utils";
+import { useHooks } from "../../provider";
 import { useUpdateSong } from "~/hooks/write/updateSongAndAlbum";
+import { api } from "~/trpc/react";
 
 type FormValues = {
   price: string;
@@ -21,11 +25,32 @@ export function UpdateDescribePrice() {
 
   const [isHidden, setIsHidden] = React.useState(true);
 
+  const [selected, setSelected] = React.useState<string>("system");
+
+  const { address } = useAccount();
+
   const [price, setPrice] = React.useState("");
+
+  const { signer } = useHooks();
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const { register, handleSubmit } = useForm<FormValues>();
+
+  const money = api.money.sub.useMutation({
+    onSuccess: () => {
+      toast.success(`🦄 balance -1`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    },
+  });
 
   const onSubmit = handleSubmit((data) => {
     const pr = data.price;
@@ -37,6 +62,18 @@ export function UpdateDescribePrice() {
 
   const handleIshidden = () => {
     setIsHidden(true);
+  };
+
+  const handleSystem = async () => {
+    const tx = await signer.updateSongAndAlbum(address, price, "0x00000000", {
+      gasLimit: 500000,
+    });
+
+    await tx.wait();
+    money.mutate({
+      address: address!,
+      number: 1,
+    });
   };
 
   React.useEffect(() => {
@@ -53,8 +90,6 @@ export function UpdateDescribePrice() {
       });
     }
   }, [updateSongLoading]);
-
-  React.useEffect(() => {}, [price]);
 
   return (
     <>
@@ -99,6 +134,22 @@ export function UpdateDescribePrice() {
                     {...register("price")}
                   />
                   <ModalFooter className="items-center justify-between pl-0 pt-6">
+                    <RadioGroup
+                      value={selected}
+                      orientation="horizontal"
+                      onValueChange={setSelected}
+                    >
+                      <Radio value="system" className="capitalize">
+                        system
+                      </Radio>
+                      <Radio
+                        value="self"
+                        color="secondary"
+                        className="capitalize"
+                      >
+                        self
+                      </Radio>
+                    </RadioGroup>
                     <div className="flex items-center gap-4">
                       <Button
                         color="danger"
@@ -133,7 +184,9 @@ export function UpdateDescribePrice() {
                       <Button
                         color="default"
                         size="sm"
-                        onClick={updateSong}
+                        onClick={
+                          selected == "system" ? handleSystem : updateSong
+                        }
                         className={cn(
                           " bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg",
                           isHidden ? "hidden" : "",

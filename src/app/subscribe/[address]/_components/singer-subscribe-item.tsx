@@ -1,18 +1,26 @@
 "use client";
 
-import Link from "next/link";
+import Image from "next/image";
 import { shortenAddress } from "~/utils";
 import { Avatar } from "@nextui-org/react";
 import { Tooltip } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
+import { AvatarLinks } from "~/utils/images";
 import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
 import { useTransferUserRightPending } from "~/hooks/write/transferUserRightPending";
 
-export default function SingerSubscribeItem({ title }: { title: string }) {
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
+export default function SingerSubscribeItem({
+  title,
+  index,
+}: {
+  title: string;
+  index: number;
+}) {
   const router = useRouter();
+
+  const mouseX = useMotionValue(0);
+
+  const mouseY = useMotionValue(0);
 
   const address = shortenAddress(title);
 
@@ -20,7 +28,9 @@ export default function SingerSubscribeItem({ title }: { title: string }) {
     singer: title,
     name: "0x00000000",
   });
-  
+
+  const avatarIndex = index % 5;
+
   return (
     <div className="group relative flex flex-col items-center  gap-2 rounded-xl border-zinc-800 p-2">
       <motion.div
@@ -36,15 +46,22 @@ export default function SingerSubscribeItem({ title }: { title: string }) {
         }}
       />
       <Tooltip content={address}>
-        <Avatar
-          isBordered
-          radius="sm"
-          size="lg"
-          src="https://i.pravatar.cc/150?u=a04258a2462d826712d"
+        <Image
+          alt="avatar"
+          src={AvatarLinks[avatarIndex]!}
+          style={{
+            width: "auto",
+            height: "auto",
+          }}
+          placeholder="blur"
+          blurDataURL={AvatarLinks[avatarIndex]!.blurDataURL}
           onClick={() => router.push(`/singer/${title}`)}
         />
       </Tooltip>
-      <button className="badge badge-neutral hidden capitalize group-hover:flex" onClick={transferUserRightPending}>
+      <button
+        className="badge badge-neutral hidden capitalize group-hover:flex"
+        onClick={transferUserRightPending}
+      >
         transfer
       </button>
     </div>

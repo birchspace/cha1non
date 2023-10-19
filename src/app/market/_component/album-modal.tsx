@@ -1,39 +1,42 @@
 "use client";
 
-import clsx from "clsx";
 import React from "react";
 
-import { useDescribeSinger } from "~/hooks/write/describeSinger";
-import { useReadyForDescribe } from "~/hooks/write/readyForDescribe";
-import { DropdownMenu } from "@radix-ui/themes";
-import { useAccount } from "wagmi";
 import { useAtom } from "jotai";
+import { useAccount } from "wagmi";
+import { DropdownMenu } from "@radix-ui/themes";
 import { readyForDescribeAtom } from "~/utils/atom";
 import { useHooks } from "~/app/_components/provider";
+import { useDescribeAlbums } from "~/hooks/write/describeAlbums";
+import { useReadyForDescribe } from "~/hooks/write/readyForDescribe";
 
-export function ModalButton({
+export function AlbumModalButton({
   text,
   singer,
   price,
+  name,
 }: {
   text: string;
   singer: string;
   price: string;
+  name: string;
 }) {
   const { address } = useAccount();
   const [readyForDescribeState] = useAtom(readyForDescribeAtom);
   const { readyForDescribe } = useReadyForDescribe({ author: address });
 
-  const thirty = useDescribeSinger({
+  const thirty = useDescribeAlbums({
     singer: singer,
     time: "0",
     price: price,
+    name: name,
   });
 
-  const sixty = useDescribeSinger({
+  const sixty = useDescribeAlbums({
     singer: singer,
     time: "1",
     price: price,
+    name: name,
   });
 
   const { signer } = useHooks();
@@ -71,7 +74,7 @@ export function ModalButton({
               <DropdownMenu.Item
                 onClick={
                   readyForDescribeState
-                    ? thirty.describeSinger
+                    ? thirty.describeAlbums
                     : readyForDescribe
                 }
               >
@@ -80,7 +83,7 @@ export function ModalButton({
               <DropdownMenu.Item
                 onClick={
                   readyForDescribeState
-                    ? sixty.describeSinger
+                    ? sixty.describeAlbums
                     : readyForDescribe
                 }
               >

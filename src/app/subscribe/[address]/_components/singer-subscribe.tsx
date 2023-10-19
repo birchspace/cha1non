@@ -1,7 +1,8 @@
 "use client";
 
 import React from "react";
-
+import Link from "next/link";
+import { MoveLeft } from "lucide-react";
 import { Title } from "~/app/_components/title";
 import SingerSubscribeItem from "./singer-subscribe-item";
 import { useGetUserDescribeSingerList } from "~/hooks/read/getUserDescribeSingerList";
@@ -28,7 +29,7 @@ export function Singerubscribe({ address }: { address: string }) {
             {getUserDescribeSingerList
               ? getUserDescribeSingerList.map((item, index) => (
                   <li key={index}>
-                    <SingerSubscribeItem title={item} />
+                    <SingerSubscribeItem title={item} index={index} />
                   </li>
                 ))
               : null}

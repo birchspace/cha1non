@@ -125,7 +125,7 @@ export function SingerAlbums() {
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1 capitalize">
-                quary MarketLenth
+                quary singer albums
               </ModalHeader>
               <ModalBody>
                 <form onSubmit={onSubmit}>
