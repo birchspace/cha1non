@@ -41,7 +41,7 @@ export const useUpdateAlbumPrice = ({
       chainId: parseInt(env.NEXT_PUBLIC_CHAIN_ID ?? "5"),
       abi,
       functionName: "updateSongAndAlbum",
-      args: [price, stringToBytes4("0")],
+      args: [address, price, stringToBytes4(name)],
     });
 
   const {

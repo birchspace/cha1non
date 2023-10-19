@@ -5,6 +5,8 @@ import { useAccount, useContractWrite } from "wagmi";
 import { stringToBytes4 } from "~/utils";
 import { usePrepareContractWrite, useWaitForTransaction } from "wagmi";
 import { toast } from "react-toastify";
+import { useAtom } from "jotai";
+import { numAtom } from "~/utils/atom";
 
 //   歌手：创建专辑
 interface CreateAlbumProps {
@@ -42,7 +44,7 @@ export const useCreateAlbum = ({
       chainId: parseInt(env.NEXT_PUBLIC_CHAIN_ID ?? "5"),
       abi,
       functionName: "updateSongAndAlbum",
-      args: [price, stringToBytes4(name)],
+      args: [address, price, stringToBytes4(name)],
     });
 
   const {
@@ -51,11 +53,14 @@ export const useCreateAlbum = ({
     isLoading: createAlbumLoading,
     isError: createAlbumError,
   } = useContractWrite(config);
+  const [, setNum] = useAtom(numAtom);
 
   const { isLoading: txLoading } = useWaitForTransaction({
     hash: data?.hash,
     onSuccess: () => {
       onSetSongSuccess;
+
+      setNum((num) => num + 1);
       toast.success("🦄 success!!!", {
         position: "top-right",
         autoClose: 5000,

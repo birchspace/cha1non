@@ -11,6 +11,7 @@ import Link from "next/link";
 import { Modal } from "./modal";
 import SingerNav from "./singer";
 import Lottie from "lottie-react";
+import PlatFormNav from "./platform";
 import homeIcon from "public/icons/static/home.json";
 import platformIcon from "public/icons/static/projects.json";
 
@@ -67,6 +68,7 @@ export function Navigation() {
       </Link>
       {role === "user" ? <UserNav /> : null}
       {role === "singer" ? <SingerNav /> : null}
+      {role === "platform" ? <PlatFormNav /> : null}
 
       <Modal />
     </nav>

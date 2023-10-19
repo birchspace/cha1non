@@ -66,7 +66,6 @@ export function Create() {
       return;
     }
     setIsHidden(false);
-    setNum((num) => num + 1);
   });
 
   const { createAlbum, createAlbumLoading } = useCreateAlbum({

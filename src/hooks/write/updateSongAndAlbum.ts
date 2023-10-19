@@ -31,7 +31,6 @@ export const useUpdateSong = ({ price, onSetSongSuccess }: UpdateSongProps) => {
     prepareupdateSongbeError: false,
     updateSongError: false,
   });
-  const priceNumber = price === "" ? "1" : price;
 
   const { config, isError: prepareupdateSongbeError } = usePrepareContractWrite(
     {
@@ -39,10 +38,7 @@ export const useUpdateSong = ({ price, onSetSongSuccess }: UpdateSongProps) => {
       chainId: parseInt(env.NEXT_PUBLIC_CHAIN_ID ?? "5"),
       abi,
       functionName: "updateSongAndAlbum",
-      args: [
-        price.length > 1 ? ethers.utils.parseEther(price).toString() : price,
-        "0x0000000",
-      ],
+      args: [address, price, "0x0000000"],
     },
   );
 

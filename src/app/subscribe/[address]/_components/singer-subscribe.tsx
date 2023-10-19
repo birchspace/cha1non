@@ -21,8 +21,8 @@ export function Singerubscribe({ address }: { address: string }) {
     <>
       {init ? (
         <section className="p-6">
-          <Title variant="title" size="xl">
-            Singer
+          <Title variant="title" size="xl" className="flex items-center gap-4">
+            <span>Singer</span>
           </Title>
           <ul className="card mt-6 grid place-items-center justify-center gap-4 md:grid-cols-6">
             {getUserDescribeSingerList
@@ -32,7 +32,6 @@ export function Singerubscribe({ address }: { address: string }) {
                   </li>
                 ))
               : null}
-            <SingerSubscribeItem title={address} />
           </ul>
         </section>
       ) : null}

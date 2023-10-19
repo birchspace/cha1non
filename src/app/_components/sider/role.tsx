@@ -56,7 +56,7 @@ export default function Role() {
     });
 
   const { mutate: updateOwnerMutate, isLoading: updateOwnerIsLoading } =
-    api.role.setSinger.useMutation({
+    api.role.setOwner.useMutation({
       onSuccess: () => {
         setRole("owner");
         toast(`🦄 The role updated to owner`, {

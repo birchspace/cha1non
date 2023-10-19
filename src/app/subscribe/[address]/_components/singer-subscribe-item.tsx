@@ -6,6 +6,7 @@ import { Avatar } from "@nextui-org/react";
 import { Tooltip } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
+import { useTransferUserRightPending } from "~/hooks/write/transferUserRightPending";
 
 export default function SingerSubscribeItem({ title }: { title: string }) {
   const mouseX = useMotionValue(0);
@@ -14,8 +15,14 @@ export default function SingerSubscribeItem({ title }: { title: string }) {
   const router = useRouter();
 
   const address = shortenAddress(title);
+
+  const { transferUserRightPending } = useTransferUserRightPending({
+    singer: title,
+    name: "0x00000000",
+  });
+  
   return (
-    <div className="group relative flex flex-col items-center rounded-xl border-zinc-800 p-2">
+    <div className="group relative flex flex-col items-center  gap-2 rounded-xl border-zinc-800 p-2">
       <motion.div
         className="pointer-events-none absolute -inset-px rounded-xl opacity-0 transition duration-300 group-hover:opacity-100"
         style={{
@@ -28,8 +35,7 @@ export default function SingerSubscribeItem({ title }: { title: string }) {
           `,
         }}
       />
-
-      <Tooltip content={address} placement="bottom">
+      <Tooltip content={address}>
         <Avatar
           isBordered
           radius="sm"
@@ -38,6 +44,9 @@ export default function SingerSubscribeItem({ title }: { title: string }) {
           onClick={() => router.push(`/singer/${title}`)}
         />
       </Tooltip>
+      <button className="badge badge-neutral hidden capitalize group-hover:flex" onClick={transferUserRightPending}>
+        transfer
+      </button>
     </div>
   );
 }

@@ -4,14 +4,23 @@ import React from "react";
 import abi from "~/config/abi.json";
 import { env } from "~/env.mjs";
 import { useAccount, useContractRead } from "wagmi";
+import { BigNumber, ethers } from "ethers";
+import { bigint } from "zod";
 
 type SingerSongsValue = {
   input: string;
 };
 
+type SingerSongsResult = [
+  singer: `0x${string}` | null,
+  price: BigNumber | null,
+  totalReward: BigNumber | null,
+  totalAmount: BigNumber | null,
+];
+
 type SingerSongsProps = {
   address: `0x${string}` | undefined;
-  singerSongs: string;
+  singerSongs: SingerSongsResult;
   getSingerSongsLoading: boolean;
   getSingerSongsError: boolean;
 };
@@ -23,7 +32,7 @@ export const useSingerSongs = ({
 
   const [state, setState] = React.useState<SingerSongsProps>({
     address: undefined,
-    singerSongs: "",
+    singerSongs: [null, null, null, null],
     getSingerSongsLoading: true,
     getSingerSongsError: false,
   });
@@ -38,7 +47,17 @@ export const useSingerSongs = ({
     abi,
     functionName: "singerSongs",
     args: [input],
-  }) as { data: string; isLoading: boolean; isError: boolean };
+    watch:true
+  }) as {
+    data: [
+      singer: `0x${string}` | null,
+      price: BigNumber | null,
+      totalReward: BigNumber | null,
+      totalAmount: BigNumber | null,
+    ];
+    isLoading: boolean;
+    isError: boolean;
+  };
 
   React.useEffect(() => {
     setState({
@@ -47,7 +66,7 @@ export const useSingerSongs = ({
       getSingerSongsLoading,
       getSingerSongsError,
     });
-  }, [address, singerSongs, getSingerSongsLoading, getSingerSongsError]);
+  }, [singerSongs]);
 
   return state;
 };

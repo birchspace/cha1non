@@ -3,9 +3,6 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { CircleDollarSign } from "lucide-react";
-
-import { useAtom } from "jotai";
-import { numAtom } from "~/utils/atom";
 import { Button, Input } from "@nextui-org/react";
 import { Modal, ModalContent, ModalHeader } from "@nextui-org/react";
 import { useDisclosure, ModalBody, ModalFooter } from "@nextui-org/react";
@@ -27,8 +24,6 @@ export function UpdateDescribePrice() {
   const [price, setPrice] = React.useState("");
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-
-  const [num, setNum] = useAtom(numAtom);
 
   const { register, handleSubmit } = useForm<FormValues>();
 

@@ -27,7 +27,7 @@ interface SongState {
 export const useDescribeSinger = ({
   singer,
   time,
-  price,
+  price = "0",
   onSetSongSuccess,
 }: DescribeSingerProps) => {
   const { address } = useAccount();
@@ -51,7 +51,7 @@ export const useDescribeSinger = ({
     abi,
     functionName: "describe",
     args: [singer, "0x00000000", time, address],
-    value: ethers.utils.parseEther(price).toBigInt(),
+    value: BigInt(price),
   });
 
   const {
