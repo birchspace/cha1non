@@ -68,6 +68,19 @@ export const authOptions: NextAuthOptions = {
             ) as Partial<SiweMessage>,
           );
 
+          const nextAuthUrl = env.NEXTAUTH_URL
+            ? env.NEXTAUTH_URL
+            : "https://cha1n0n.vercel.app/";
+
+          if (!nextAuthUrl) {
+            return null;
+          }
+
+          const nextAuthHost = new URL(nextAuthUrl).host;
+          if (siwe.domain !== nextAuthHost) {
+            return null;
+          }
+
           if (
             siwe.nonce !==
             (await getCsrfToken({ req: { headers: req.headers } }))
