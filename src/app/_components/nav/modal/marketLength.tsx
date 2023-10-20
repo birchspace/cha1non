@@ -124,10 +124,6 @@ export function MarketLenth() {
   const handleIshidden = () => {
     setIsHidden(true);
   };
-  console.log(
-    "marketLengthMusicAlbumData",
-    marketLengthMusicAlbumData.toString(),
-  );
 
   const handleUseMarketLengthMusic = () => {
     if (singer.length !== 42) {
