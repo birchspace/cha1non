@@ -68,7 +68,7 @@ export const authOptions: NextAuthOptions = {
             ) as Partial<SiweMessage>,
           );
 
-          const nextAuthUrl = "https://cha1n0n.vercel.app/";
+          const nextAuthUrl = env.NEXTAUTH_URL;
 
           if (!nextAuthUrl) {
             return null;
