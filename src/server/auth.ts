@@ -68,7 +68,7 @@ export const authOptions: NextAuthOptions = {
             ) as Partial<SiweMessage>,
           );
 
-          const nextAuthUrl = "cha1non-7qj8le3a0-birchrust.vercel.app";
+          const nextAuthUrl = "https://cha1non-git-master-birchrust.vercel.app/";
 
           if (!nextAuthUrl) {
             return null;
