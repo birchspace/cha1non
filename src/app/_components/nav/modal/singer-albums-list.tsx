@@ -55,7 +55,7 @@ export function SingerAlbumsList() {
 
   const handleUseMarketLengthMusic = () => {
     setSingerData(getSingerAlbumsList);
-    toast(`🦄 ${getSingerAlbumsList}`, {
+    toast(`🦄 ${getSingerAlbumsList[0]}`, {
       position: "top-right",
       autoClose: 5000,
       hideProgressBar: false,
