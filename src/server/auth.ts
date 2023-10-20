@@ -77,7 +77,10 @@ export const authOptions: NextAuthOptions = {
           }
 
           const nextAuthHost = new URL(nextAuthUrl).host;
+          console.log("domain:nextAuthHost", siwe.domain, nextAuthHost);
           if (siwe.domain !== nextAuthHost) {
+            console.log("domain", siwe.domain, nextAuthHost);
+
             return null;
           }
 
