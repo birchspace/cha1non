@@ -114,7 +114,7 @@ export const authOptions: NextAuthOptions = {
             });
           }
 
-          await siwe.verify({ signature: credentials?.signature ?? "" });
+          await siwe.verify({ signature: credentials?.signature ?? "{}" });
 
           return {
             id: siwe.address,
