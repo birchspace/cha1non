@@ -36,7 +36,7 @@ export const stringToBytes8 = (str: string) => {
 };
 
 export const isBytes4 = (input: string) => {
-  const regExp = /^0x[0-9A-Fa-f]{4,8}$/;
+  const regExp = /^0x[0-9A-Fa-f]{8}$/;
   return regExp.test(input);
 };
 

@@ -16,7 +16,7 @@ export function Default() {
       </div>
       <Typography className="leading-relaxed">
         We understand that in the current domestic music market, users often
-        encounter a problem: certain artists&apos; music can only be heard on
+        encounter a problem: certain artists' music can only be heard on
         specific platforms. When users want to enjoy music from other artists,
         they have to switch platforms, which is quite inconvenient. To address
         this issue, we have created this platform with the aim to explore and
@@ -25,7 +25,7 @@ export function Default() {
         Our mission is to provide users with a higher quality and more
         convenient music experience.
       </Typography>
-      <span className="btn btn-neutral btn-active w-fit">
+      <span className="btn btn-active btn-neutral w-fit">
         Click left sign button in to launch
       </span>
     </section>

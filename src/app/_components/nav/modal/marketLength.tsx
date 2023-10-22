@@ -36,7 +36,7 @@ export function MarketLenth() {
   const [name, setName] = React.useState("");
 
   const [marketLengthMusicAlbumData, setMarketLengthMusicAlbumData] =
-    React.useState("");
+    React.useState([]);
 
   const [selected, setSelected] = React.useState("music");
 
@@ -55,7 +55,7 @@ export function MarketLenth() {
   const onSubmit = handleSubmit((data) => {
     setSinger(data.singer);
     if (!isEOAAddress(data.singer)) {
-      toast.error("🦄 Please check singer address input", {
+      toast.error("🦄 Please check input", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -178,8 +178,7 @@ export function MarketLenth() {
       });
       return;
     }
-    setMarketLengthMusicAlbumData(marketLengthMusicAlbum);
-    toast.success(`🦄 Quary market length siccess: ${marketLengthMusicAlbum}`, {
+    toast.success(`🦄 ${marketLengthMusicAlbum}`, {
       position: "top-right",
       autoClose: 5000,
       hideProgressBar: false,
@@ -189,6 +188,7 @@ export function MarketLenth() {
       progress: undefined,
       theme: "dark",
     });
+    setMarketLengthMusicAlbumData(marketLengthMusicAlbumData);
   };
 
   return (
@@ -311,8 +311,8 @@ export function MarketLenth() {
                         className="mt-4"
                         {...res.register("name")}
                       />
-                      <ModalFooter className=" flex flex-col items-start pl-0 pt-6">
-                        <div className="flex items-center justify-start gap-4">
+                      <ModalFooter className="items-center justify-between pl-0 pt-6">
+                        <div className="flex items-center gap-4">
                           <Button
                             color="danger"
                             size="sm"
@@ -360,6 +360,16 @@ export function MarketLenth() {
                   </Tab>
                 </Tabs>
               </ModalBody>
+
+              {marketLengthMusicAlbumData.length > 0 ? (
+                <ModalFooter>
+                  {marketLengthMusicAlbumData.map((item, index) => (
+                    <span className="px-6 py-3 text-xs" key={index}>
+                      {item}
+                    </span>
+                  ))}
+                </ModalFooter>
+              ) : null}
             </>
           )}
         </ModalContent>
